@@ -2,11 +2,13 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import AuthModule from './authmodule'
 import FileModule from './filemodule'
+import ChatModule from './chatmodule'
 Vue.use(Vuex)
 export default new Vuex.Store({
   modules: {
     auth: AuthModule,
     file: FileModule,
+    chat: ChatModule
   },
   state: {
     alert_message: null,

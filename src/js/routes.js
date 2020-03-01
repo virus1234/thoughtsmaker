@@ -5,9 +5,12 @@ import SignInPage from '../pages/auth/signin.vue';
 import SignUpPage from '../pages/auth/signup.vue';
 import EditProfilePage from '../pages/auth/editprofile.vue';
 
+//chat
+import RequestPage from '../pages/chat/request.vue';
+import ContactPage from '../pages/chat/contact.vue';
+
 import AllPhotosPage from '../pages/allphotos.vue';
 import AllFriendsPage from '../pages/friends.vue';
-
 
 import NotFoundPage from '../pages/404.vue';
 
@@ -43,6 +46,16 @@ var routes = [
   {
     path: '/editprofile/',
     component: EditProfilePage,
+  },
+
+  //chat
+  {
+    path: '/request/',
+    component: RequestPage,
+  },
+  {
+    path: '/contact/',
+    component: ContactPage,
   },
   {
     path: '(.*)',

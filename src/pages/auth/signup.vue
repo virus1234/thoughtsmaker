@@ -3,12 +3,12 @@
     <!--<f7-login-screen-title>Register</f7-login-screen-title>-->
     <div class="wrapper">
       <img class="image-cover" :src="image_url" @click="launchFilePicker">
+      <input type="file" ref="file" style="display:none;" @change="onFilePicked">
     </div>
     <f7-list form>
       <f7-list-input label="Name" type="text" placeholder="Your name" :value="name" @input="name = $event.target.value"></f7-list-input>
       <f7-list-input label="Email" type="email" placeholder="Your email" :value="email" @input="email = $event.target.value"></f7-list-input>
       <f7-list-input label="Password" type="password" placeholder="Your password" :value="password" @input="password = $event.target.value"></f7-list-input>
-      <input type="file" ref="file" style="display:none;" @change="onFilePicked">
     </f7-list>
     <f7-list>
       <f7-button style="width: 80%; margin: auto;" fill round @click="signUp">Sign Up</f7-button>

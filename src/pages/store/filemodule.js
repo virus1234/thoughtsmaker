@@ -2,11 +2,11 @@ import { fb } from '../../js/firebase'
 const FileModule = {
   state: {
     image_url: 'https://i.ya-webdesign.com/images/avatar-arrow-png-8.png',
-    files: null
+    files: null,
   },
   getters: {
     image_url: state => state.image_url,
-    files: state => state.files
+    files: state => state.files,
   },
   mutations: {
     setImageURL(state, payload) {
@@ -36,7 +36,25 @@ const FileModule = {
     uploadFile({commit, state}) {
       return new Promise( (resolve, reject) => {
         var file = state.files[0]
-        var storageRef = fb.storage().ref('profile/'+file.name)
+        var storageRef = fb.storage().ref('profile/'+(new Date())+'-'+file.name)
+        var task = storageRef.put(file)
+        task.on('state_changed', (snapshot) => {
+          var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log('Upload is ' + progress + '% done');
+        }, (err) => {
+            console.log(err.message)
+        }, () => {
+          task.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+            console.log('File available at', downloadURL);
+            resolve(downloadURL)
+          });
+        });
+      })
+    },
+    postImage({commit, state}) {
+      return new Promise( (resolve, reject) => {
+        var file = state.files[0]
+        var storageRef = fb.storage().ref('posts/'+(new Date())+'-'+file.name)
         var task = storageRef.put(file)
         task.on('state_changed', (snapshot) => {
           var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;

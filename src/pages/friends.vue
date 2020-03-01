@@ -3,8 +3,8 @@
     <f7-navbar title="All Friends" style="color: teal;"></f7-navbar>
     <f7-block class="friends no-border">
       <f7-list style="margin: 0px;" media-list>
-        <f7-list-item v-for="(friend, index) in friends" :key="index" :title="friend.name" :after="friend.status" :subtitle="friend.last_message">
-          <img slot="media" :src="friend.image" />
+        <f7-list-item v-for="(user, index) in users" :key="index" :title="user.name" after="status" subtitle="last_message">
+          <img slot="media" :src="user.photo_url" />
         </f7-list-item>
       </f7-list>
     </f7-block>
@@ -13,6 +13,7 @@
 
 
 <script>
+import { fb, db } from '../js/firebase'
 export default {
   data  () {
     return {
@@ -26,9 +27,15 @@ export default {
         { id: 3545351, name: "Mike Perry", status: 'on', image: 'https://partyflock.nl/images/artist/100846_1058x1058_453723/Mike-Perry.jpg', last_message: 'Hey Dj...' },
         { id: 3545351, name: "Mike Perry", status: 'on', image: 'https://partyflock.nl/images/artist/100846_1058x1058_453723/Mike-Perry.jpg', last_message: 'Hey Dj...' },
         { id: 3545351, name: "Mike Perry", status: 'on', image: 'https://partyflock.nl/images/artist/100846_1058x1058_453723/Mike-Perry.jpg', last_message: 'Hey Dj...' },*/
-      ]
+      ],
+      users: [],
     }
   },
+  firestore() {
+    return {
+      users: db.collection('users')
+    }
+  }
 }
 </script>
 

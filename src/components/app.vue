@@ -29,12 +29,35 @@
 
   <f7-view v-if="!signed_in" url="/signin/" :main="true"></f7-view>
 
+  <f7-popup class="demo-popup-swipe" swipe-to-close>
+    <f7-page>
+      <f7-navbar title="Swipe To Close">
+        <f7-nav-right>
+          <f7-link popup-close>Close</f7-link>
+        </f7-nav-right>
+      </f7-navbar>
+
+      <div style="height: 100%"><!--class="display-flex justify-content-center align-items-center"-->
+        <div class="wrapper">
+          <img class="image-cover" :src="image_url" @click="launchFilePicker">
+          <input type="file" ref="file" style="display:none;" @change="onFilePicked">
+        </div>
+        <f7-list>
+          <f7-list-input type="textarea" placeholder="Write something here..." :value="desc" @input="desc = $event.target.value"></f7-list-input>
+          <f7-button style="margin: auto 15px;" fill @click="post">Post</f7-button>
+        </f7-list>
+        <p> {{ desc }}</p>
+      </div>
+    </f7-page>
+  </f7-popup>
+
 </f7-app>
 </template>
 <script>
   import { Device }  from 'framework7/framework7-lite.esm.bundle.js';
   import cordovaApp from '../js/cordova-app.js';
   import routes from '../js/routes.js';
+  import { fb, db } from '../js/firebase'
 
   export default {
     data() {
@@ -48,24 +71,6 @@
           data: function () {
             return {
 
-              // Demo products for Catalog section
-              products: [
-                {
-                  id: '1',
-                  title: 'Apple iPhone 8',
-                  description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi tempora similique reiciendis, error nesciunt vero, blanditiis pariatur dolor, minima sed sapiente rerum, dolorem corrupti hic modi praesentium unde saepe perspiciatis.'
-                },
-                {
-                  id: '2',
-                  title: 'Apple iPhone 8 Plus',
-                  description: 'Velit odit autem modi saepe ratione totam minus, aperiam, labore quia provident temporibus quasi est ut aliquid blanditiis beatae suscipit odio vel! Nostrum porro sunt sint eveniet maiores, dolorem itaque!'
-                },
-                {
-                  id: '3',
-                  title: 'Apple iPhone X',
-                  description: 'Expedita sequi perferendis quod illum pariatur aliquam, alias laboriosam! Vero blanditiis placeat, mollitia necessitatibus reprehenderit. Labore dolores amet quos, accusamus earum asperiores officiis assumenda optio architecto quia neque, quae eum.'
-                },
-              ]
             };
           },
 
@@ -87,14 +92,48 @@
             androidOverlaysWebView: false,
           },
         },
+        //add post
+        desc: null,
       }
     },
+    
+    computed: {
+      signed_in () {
+        return this.$store.getters.signed_in
+      },
+      image_url() {
+        return this.$store.getters.image_url
+      },
+      files () {
+        return this.$store.getters.files
+      },
+    },
     methods: {
-      signOut () {
-        const app = this.$f7
-        this.$store.dispatch('signOut')
-        app.panel.close()
-      }
+      launchFilePicker () {
+        this.$refs.file.click();
+      },
+      onFilePicked () {
+        this.$store.dispatch('readFile')
+      },
+      post() {
+        var user = fb.auth().currentUser
+        const self = this
+        var payload = {}
+        payload.uid = user.uid
+        payload.name = user.displayName
+        payload.user_image = user.photoURL
+        payload.email = user.email
+        payload.photoURL = this.image_url
+        payload.desc = this.desc
+        if(self.files) {
+          this.$store.dispatch('postImage').then( (url) => {
+            payload.photoURL = url
+            self.$store.dispatch('uploadPost', payload)
+          })
+        } else {
+          this.$store.dispatch('uploadPost', payload)
+        }
+      },
     },
     mounted() {
       this.$f7ready((f7) => {
@@ -104,11 +143,6 @@
         }
         // Call F7 APIs here
       });
-    },
-    computed: {
-      signed_in () {
-        return this.$store.getters.signed_in
-      },
     },
     mounted() {
       this.$f7ready((f7) => {

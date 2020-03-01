@@ -83,6 +83,7 @@
                 photo_url: user.photoURL,
                 name: user.displayName
               })
+              self.$store.commit('setAlertMessage', 'Profile Updated')
             }).catch( (err) => {
               console.log(err.message)
             })
@@ -92,6 +93,7 @@
             displayName: self.display_name
           }).then( () => {
             self.$store.commit('setDisplayName', self.display_name)
+            self.$store.commit('setAlertMessage', 'Profile Updated')
           })
         }
       },

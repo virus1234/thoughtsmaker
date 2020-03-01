@@ -5,7 +5,7 @@ const AuthModule = {
     signed_in : false,
     show_resend_email: false,
     photo_url: null,
-    display_name: null
+    display_name: null,
   },
   getters: {
     signed_up: state => state.signed_up,
@@ -32,6 +32,24 @@ const AuthModule = {
     }
   },
   actions: {
+    uploadPost({commit, dispatch}, payload) {
+      db.collection('posts').doc().set({
+        uid: payload.uid,
+        name: payload.name,
+        user_image: payload.user_image,
+        email: payload.email,
+        post_image: payload.photoURL,
+        description: payload.desc,
+        liked_by: {},
+        liked: 0,
+        upload_date: new Date()
+      }).then( () => {
+        commit('setAlertMessage', 'Post Uploaded succesfully')
+      }).catch( (err) => {
+        console.log(err.message)
+        commit('setAlertMessage', err.message)
+      })
+    },
     signIn({commit}, payload) {
       fb.auth().signInWithEmailAndPassword(payload.email, payload.password).then( (user) => {
         fb.auth().onAuthStateChanged( (user) => {

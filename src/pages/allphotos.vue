@@ -16,6 +16,7 @@
 
 
 <script>
+import { fb, db } from '../js/firebase'
 export default {
   data  () {
     return {
@@ -28,7 +29,13 @@ export default {
         'https://d3ppia5ny11y1h.cloudfront.net/wp-content/uploads/2018/07/Top-10-best-Instagram-spots-in-Thailand.jpg',
         'https://cdn2.hubspot.net/hubfs/2198762/Guys%20Instagram%20Bios.jpg',
         'https://cdn-ep19.pressidium.com/wp-content/uploads/2019/08/Best_Free_Lightroom_Presets_Blogger.jpg'   
-      ]
+      ],
+      //photos: []
+    }
+  },
+  firestore () {
+    return {
+      //photos: db.collection('posts')
     }
   },
 }
@@ -36,8 +43,8 @@ export default {
 
 <style scoped>
 .imageClass {
-width: 32%;
+width: 33%;
 height: 100px;
-margin-bottom: 10px;
+margin-bottom: 2px;
 }
 </style>

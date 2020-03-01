@@ -1,6 +1,6 @@
 <template>
   <f7-page no-toolbar>
-    <f7-navbar no-shadow>
+    <f7-navbar>
       <f7-nav-title style="color: teal;">Profile Setting</f7-nav-title>
       <f7-nav-right>
         <f7-button round small @click="signOut">
@@ -11,10 +11,10 @@
     <div class="wrapper">
       <img class="image-cover" :src="image_url" @click="launchFilePicker">
     </div>
-    <f7-list form>
+
       <f7-list-input label="Name" type="text" :value="display_name" @input="display_name = $event.target.value"></f7-list-input>      
       <input type="file" ref="file" style="display:none;" @change="onFilePicked">
-    </f7-list>
+  
     <f7-list>
       <f7-button style="width: 80%; margin: auto;" fill round @click="updateProfile" >Update Profile</f7-button>
     </f7-list>

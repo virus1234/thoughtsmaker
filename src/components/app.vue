@@ -15,15 +15,15 @@
   <f7-views tabs class="safe-areas" v-if="signed_in">
     <f7-toolbar tabbar labels bottom no-shadow>
       <f7-link tab-link="#view-home" tab-link-active icon-ios="f7:house_fill" icon-aurora="f7:house_fill" icon-md="material:home" text="Home"></f7-link>
-      <f7-link tab-link="#view-allphotos" icon-ios="f7:list_dash" icon-aurora="f7:list_dash" icon-md="material:dashboard" text="All Photos"></f7-link>
+      <!--<f7-link tab-link="#view-allphotos" icon-ios="f7:list_dash" icon-aurora="f7:list_dash" icon-md="material:dashboard" text="All Photos"></f7-link>
       <f7-link tab-link="#view-friends" icon-ios="f7:person_3_fill" icon-aurora="f7:person_3_fill" icon-md="material:people" text="Friends"></f7-link>
-      <f7-link tab-link="#view-posts" icon-ios="f7:square_list_fill" icon-aurora="f7:square_list_fill" icon-md="material:list" text="Posts"></f7-link>
+      <f7-link tab-link="#view-posts" icon-ios="f7:square_list_fill" icon-aurora="f7:square_list_fill" icon-md="material:list" text="Posts"></f7-link>-->
       <f7-link tab-link="#view-profile" icon-ios="f7:person_alt" icon-aurora="f7:person_alt" icon-md="material:person" text="Profile"></f7-link>
     </f7-toolbar>
 
     <f7-view id="view-home" main tab tab-active url="/"></f7-view>
-    <f7-view id="view-allphotos" name="allphotos" tab url="/allphotos/"></f7-view>
-    <f7-view id="view-friends" name="friends" tab url="/friends/"></f7-view>
+    <!--<f7-view id="view-allphotos" name="allphotos" tab url="/allphotos/"></f7-view>
+    <f7-view id="view-friends" name="friends" tab url="/friends/"></f7-view>-->
     <f7-view id="view-profile" name="profile" tab url="/editprofile/"></f7-view>
   </f7-views>
 

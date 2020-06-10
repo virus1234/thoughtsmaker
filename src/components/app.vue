@@ -46,7 +46,7 @@
           <f7-list-input type="textarea" placeholder="Write something here..." :value="desc" @input="desc = $event.target.value"></f7-list-input>
           <f7-button style="margin: auto 15px;" fill @click="post">Post</f7-button>
         </f7-list>
-        <p> {{ desc }}</p>
+        <!--<p> {{ desc }}</p>-->
       </div>
     </f7-page>
   </f7-popup>
